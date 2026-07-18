@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="mr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Community | DurgSanrakshak</title>
+<link rel="stylesheet" href="{{ url_for('static', filename='css/app-shell.css') }}">
+<link rel="stylesheet" href="{{ url_for('static', filename='css/home.css') }}">
+<link rel="stylesheet" href="{{ url_for('static', filename='css/event.css') }}">
+<link rel="stylesheet" href="{{ url_for('static', filename='css/community.css') }}">
+</head>
+<body>
+
+<div class="app-shell">
+
+  <!-- ============ SIDEBAR ============ -->
+  <aside class="sidebar" id="sidebar">
+    <div class="sidebar-header">
+      <svg class="emblem" viewBox="0 0 44 44" fill="none">
+        <circle cx="22" cy="22" r="21" stroke="#F4842D" stroke-width="2"/>
+        <path d="M14 28 L14 18 L22 12 L30 18 L30 28 Z" fill="#F4842D"/>
+      </svg>
+      <span>दुर्गसंरक्षक</span>
+    </div>
+
+    <nav class="sidebar-nav">
+      <a href="{{ url_for('home_page') }}" class="nav-item">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 11l9-8 9 8"/><path d="M5 10v10h14V10"/></svg>
+        Home
+      </a>
+      <a href="{{ url_for('event_page') }}" class="nav-item">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18M8 3v4M16 3v4"/></svg>
+        Event
+      </a>
+      <a href="{{ url_for('community_page') }}" class="nav-item active">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="9" cy="8" r="3"/><path d="M2 20c0-3.5 3-6 7-6s7 2.5 7 6"/><circle cx="17" cy="8" r="2.5"/><path d="M16 14.2c2.6.6 4.5 2.6 4.5 5.8"/></svg>
+        Community
+      </a>
+      <a href="{{ url_for('wallet_page') }}" class="nav-item">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="6" width="18" height="14" rx="2"/><path d="M3 10h18"/><circle cx="16" cy="14" r="1.5"/></svg>
+        Wallet
+      </a>
+      <a href="{{ url_for('location_page') }}" class="nav-item">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 21s7-6.5 7-11a7 7 0 10-14 0c0 4.5 7 11 7 11z"/><circle cx="12" cy="10" r="2.5"/></svg>
+        Location
+      </a>
+      <a href="{{ url_for('help_page') }}" class="nav-item">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M9.5 9a2.5 2.5 0 015 .5c0 1.7-2.5 1.7-2.5 3.5"/><circle cx="12" cy="17" r=".3" fill="currentColor"/></svg>
+        Help
+      </a>
+      {% if is_admin %}
+      <a href="{{ url_for('admin_dashboard') }}" class="nav-item" style="color:var(--kesari);">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 00.33 1.82l.06.06a2 2 0 11-2.83 2.83l-.06-.06a1.65 1.65 0 00-1.82-.33 1.65 1.65 0 00-1 1.51V21a2 2 0 01-4 0v-.09A1.65 1.65 0 009 19.4a1.65 1.65 0 00-1.82.33l-.06.06a2 2 0 11-2.83-2.83l.06-.06A1.65 1.65 0 004.6 15a1.65 1.65 0 00-1.51-1H3a2 2 0 010-4h.09A1.65 1.65 0 004.6 9a1.65 1.65 0 00-.33-1.82l-.06-.06a2 2 0 112.83-2.83l.06.06A1.65 1.65 0 009 4.6a1.65 1.65 0 001-1.51V3a2 2 0 014 0v.09a1.65 1.65 0 001 1.51 1.65 1.65 0 001.82-.33l.06-.06a2 2 0 112.83 2.83l-.06.06A1.65 1.65 0 0019.4 9a1.65 1.65 0 001.51 1H21a2 2 0 010 4h-.09a1.65 1.65 0 00-1.51 1z"/></svg>
+        ⚙️ Admin Panel
+      </a>
+      {% endif %}
+    </nav>
+
+    <div class="sidebar-footer">
+      <div class="mini-avatar">{{ full_name[:1] if full_name else '?' }}</div>
+      <div class="who">
+        <strong>{{ full_name or 'अतिथी' }}</strong>
+        <small>🏅 Explorer</small>
+      </div>
+      <a class="logout-btn" href="{{ url_for('logout') }}" aria-label="लॉगआऊट">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 21H5a2 2 0 01-2-2V5a2 2 0 012-2h4"/><path d="M16 17l5-5-5-5"/><path d="M21 12H9"/></svg>
+      </a>
+    </div>
+  </aside>
+
+  <!-- ============ MAIN ============ -->
+  <div class="app-main">
+
+    <div class="topbar">
+      <h2>Community</h2>
+      <div class="topbar-right">
+        <button class="icon-btn" aria-label="सूचना">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 8a6 6 0 10-12 0c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.7 21a2 2 0 01-3.4 0"/></svg>
+          <span class="dot"></span>
+        </button>
+        <div class="mini-avatar">{{ full_name[:1] if full_name else '?' }}</div>
+      </div>
+    </div>
+
+    <div class="dashboard-content">
+
+      <div class="page-actions">
+        <div></div>
+        <button class="btn-solid" id="openCreateCommunityModal">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12h14"/></svg>
+          नवीन Community तयार करा
+        </button>
+      </div>
+
+      <div class="community-layout">
+
+        <!-- ===== LEFT: Community list ===== -->
+        <div class="card list-panel">
+          <div class="panel-title">माझ्या Communities</div>
+          {% for c in my_communities %}
+          <a href="{{ url_for('community_page', community_id=c['community_id']) }}" class="community-item {{ 'active' if c['community_id'] == active_id else '' }}" style="text-decoration:none; color:inherit;">
+            <div class="community-avatar">{{ c['community_name'][:2] | upper }}</div>
+            <div class="info"><strong>{{ c['community_name'] }}</strong><small>{{ c['member_count'] }} सदस्य</small></div>
+          </a>
+          {% else %}
+          <div style="padding:14px 8px; font-size:12.5px; color:var(--ink-soft);">अजून कुठलीच community join केलेली नाही.</div>
+          {% endfor %}
+
+          <div class="panel-title">शोधा — नवीन Communities</div>
+          {% for c in discover_communities %}
+          <div class="community-item">
+            <div class="community-avatar">{{ c['community_name'][:2] | upper }}</div>
+            <div class="info"><strong>{{ c['community_name'] }}</strong><small>{{ c['member_count'] }} सदस्य</small></div>
+            <form method="POST" action="{{ url_for('api_join_community', community_id=c['community_id']) }}">
+              <button type="submit" class="join-btn-sm">Join</button>
+            </form>
+          </div>
+          {% else %}
+          <div style="padding:14px 8px; font-size:12.5px; color:var(--ink-soft);">सध्या नवीन communities नाहीत.</div>
+          {% endfor %}
+        </div>
+
+        <!-- ===== RIGHT: Feed ===== -->
+        <div>
+          {% if active_community %}
+          <div class="community-header">
+            <h2>🚩 {{ active_community['community_name'] }}</h2>
+            <p>{{ active_community['description'] }}</p>
+            <div class="community-header-meta">
+              <span>
+👥 {{ active_community.member_count }} सदस्य
+</span>
+              <span>📅 {{ active_community['event_count'] }} Events झाले</span>
+              <button class="btn-solid" id="openInviteModal">➕ मित्रांना Invite करा</button>
+            </div>
+          </div>
+
+          <div class="feed-tabs" id="feedTabs">
+            <button class="active" data-type="All">सर्व</button>
+            <button data-type="Discussion">Discussion</button>
+            <button data-type="Announcement">Announcements</button>
+            <button data-type="Photo">Photos</button>
+          </div>
+
+          <!-- Composer -->
+          <div class="card composer">
+            <form method="POST" action="{{ url_for('api_community_post', community_id=active_community['community_id']) }}">
+              <div class="composer-top">
+                <div class="mini-avatar" style="background:var(--forest);">{{ full_name[:1] if full_name else '?' }}</div>
+                <textarea name="content" placeholder="काहीतरी शेअर करा — विचार, फोटो, किंवा announcement..." required></textarea>
+              </div>
+              <div class="composer-actions">
+                <div class="composer-type" id="composerType">
+                  <button type="button" class="type-chip active" data-type="Discussion">💬 Discussion</button>
+                  <button type="button" class="type-chip" data-type="Announcement">📢 Announcement</button>
+                  <button type="button" class="type-chip" data-type="Photo">📸 Photo</button>
+                </div>
+                <input type="hidden" name="post_type" id="postTypeInput" value="Discussion">
+                <button type="submit" class="btn-solid">Post करा</button>
+              </div>
+            </form>
+          </div>
+
+          <!-- Feed -->
+          <div id="feedContainer">
+            {% for post in posts %}
+            <div class="card post-card" data-type="{{ post['post_type'] }}">
+              <div class="post-head">
+                <div class="mini-avatar" style="background:{{ 'var(--kesari)' if post['post_type'] == 'Announcement' else ('var(--maroon)' if post['post_type'] == 'Discussion' else 'var(--forest)') }};">{{ post['author_name'][:1] }}</div>
+                <div class="info"><strong>{{ post['author_name'] }}</strong><small>{{ post['created_at'] }}</small></div>
+                <span class="post-type-tag {{ 'announcement' if post['post_type'] == 'Announcement' else '' }}">
+                  {% if post['post_type'] == 'Announcement' %}📢 Announcement{% elif post['post_type'] == 'Photo' %}📸 Photo{% else %}💬 Discussion{% endif %}
+                </span>
+              </div>
+              <div class="post-content">{{ post['content'] }}</div>
+              {% if post['post_type'] == 'Photo' %}<div class="post-photo"></div>{% endif %}
+              <div class="post-actions">
+                <form method="POST" action="{{ url_for('api_like_post', post_id=post['post_id']) }}" style="display:inline;">
+                  <input type="hidden" name="community_id" value="{{ active_community['community_id'] }}">
+                  <button type="submit" class="post-action-btn like-btn {{ 'liked' if post['liked_by_me'] else '' }}">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 9V5a3 3 0 00-6 0v4H4l1 10a2 2 0 002 2h10a2 2 0 002-2l1-10h-6z"/></svg>
+                    <span class="like-count">{{ post['like_count'] }}</span>
+                  </button>
+                </form>
+                <button type="button" class="post-action-btn comment-toggle">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 11.5a8.38 8.38 0 01-8.5 8.5 8.5 8.5 0 01-4-1L3 21l2-5.5A8.38 8.38 0 013 12 8.5 8.5 0 0111.5 3 8.38 8.38 0 0121 11.5z"/></svg>
+                  <span>{{ post['comments'] | length }} Comments</span>
+                </button>
+              </div>
+              <div class="comment-box">
+                {% for c in post['comments'] %}
+                <div class="existing-comment"><div class="leader-avatar">{{ c['commenter_name'][:1] }}</div><div><strong>{{ c['commenter_name'] }}:</strong> {{ c['comment_text'] }}</div></div>
+                {% endfor %}
+                <form method="POST" action="{{ url_for('api_comment_post', post_id=post['post_id']) }}" class="comment-input-row">
+                  <input type="hidden" name="community_id" value="{{ active_community['community_id'] }}">
+                  <input type="text" name="comment_text" placeholder="Comment लिहा..." required>
+                  <button type="submit" class="comment-send"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 2L11 13M22 2l-7 20-4-9-9-4 20-7z"/></svg></button>
+                </form>
+              </div>
+            </div>
+            {% else %}
+            <div class="card" style="padding:30px; text-align:center; color:var(--ink-soft); font-size:13px;">
+              अजून इथे काहीही post केलेलं नाही — पहिली post तुम्हीच टाका!
+            </div>
+            {% endfor %}
+          </div>
+
+          {% else %}
+          <div class="card" style="padding:40px; text-align:center; color:var(--ink-soft);">
+            <p style="margin-bottom:10px; font-size:14px;">तुम्ही अजून कुठल्याही community मध्ये सामील झालेला नाहीत.</p>
+            <p style="font-size:12.5px;">डावीकडून एखादी Community join करा किंवा नवीन तयार करा.</p>
+          </div>
+          {% endif %}
+
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ============ CREATE COMMUNITY MODAL ============ -->
+<div class="modal-overlay" id="createCommunityModal">
+  <div class="modal-box">
+    <button class="modal-close" id="closeCreateCommunityModal">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 6l12 12M18 6L6 18"/></svg>
+    </button>
+    <h3>नवीन Community तयार करा</h3>
+    <form method="POST" action="{{ url_for('api_create_community') }}">
+      <div class="form-field">
+        <label>Community चं नाव</label>
+        <input type="text" name="name" placeholder="उदा. Panhala Guardians" required>
+      </div>
+      <div class="form-field">
+        <label>वर्णन</label>
+        <textarea name="description" rows="3" placeholder="या community चा उद्देश काय आहे..."></textarea>
+      </div>
+      <button type="submit" class="btn-solid" style="width:100%; justify-content:center; margin-top:6px;">Community तयार करा</button>
+    </form>
+  </div>
+</div>
+
+<!-- ============ INVITE FRIENDS MODAL ============ -->
+<div class="modal-overlay" id="inviteModal">
+  <div class="modal-box">
+    <button class="modal-close" id="closeInviteModal">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 6l12 12M18 6L6 18"/></svg>
+    </button>
+    <h3>मित्रांना Invite करा</h3>
+    <p style="font-size:13px; color:var(--ink-soft); margin-bottom:16px;">ही लिंक शेअर करा — तुमचे मित्र थेट या community मध्ये सामील होऊ शकतील.</p>
+    <div class="form-field">
+      <label>Invite Link</label>
+      <input type="text" value="http://127.0.0.1:5000/community?community_id={{ active_community['community_id'] if active_community else '' }}" readonly id="inviteLink">
+    </div>
+    <button class="btn-solid" id="copyInviteBtn" style="width:100%; justify-content:center;">लिंक कॉपी करा</button>
+  </div>
+</div>
+
+<script src="{{ url_for('static', filename='js/community.js') }}"></script>
+</body>
+</html>

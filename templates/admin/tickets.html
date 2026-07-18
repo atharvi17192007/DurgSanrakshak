@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="mr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Help Tickets | Admin</title>
+<link rel="stylesheet" href="{{ url_for('static', filename='css/app-shell.css') }}">
+<link rel="stylesheet" href="{{ url_for('static', filename='css/home.css') }}">
+<link rel="stylesheet" href="{{ url_for('static', filename='css/event.css') }}">
+<link rel="stylesheet" href="{{ url_for('static', filename='css/admin.css') }}">
+</head>
+<body>
+
+<div class="app-shell">
+
+  <aside class="sidebar">
+    <div class="sidebar-header">
+      <svg class="emblem" viewBox="0 0 44 44" fill="none">
+        <circle cx="22" cy="22" r="21" stroke="#F4842D" stroke-width="2"/>
+        <path d="M14 28 L14 18 L22 12 L30 18 L30 28 Z" fill="#F4842D"/>
+      </svg>
+      <span>दुर्गसंरक्षक<span class="admin-badge">ADMIN</span></span>
+    </div>
+
+    <nav class="sidebar-nav">
+      <a href="{{ url_for('admin_dashboard') }}" class="nav-item">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 11l9-8 9 8"/><path d="M5 10v10h14V10"/></svg>
+        Dashboard
+      </a>
+      <a href="{{ url_for('admin_tickets') }}" class="nav-item active">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/></svg>
+        Help Tickets
+      </a>
+      <a href="{{ url_for('admin_events') }}" class="nav-item">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18M8 3v4M16 3v4"/></svg>
+        Events
+      </a>
+      <a href="{{ url_for('home_page') }}" class="nav-item">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+        Volunteer App कडे परत
+      </a>
+    </nav>
+
+    <div class="sidebar-footer">
+      <div class="mini-avatar">{{ full_name[:1] if full_name else '?' }}</div>
+      <div class="who">
+        <strong>{{ full_name or 'Admin' }}</strong>
+        <small>👑 Admin</small>
+      </div>
+      <a class="logout-btn" href="{{ url_for('logout') }}" aria-label="लॉगआऊट">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 21H5a2 2 0 01-2-2V5a2 2 0 012-2h4"/><path d="M16 17l5-5-5-5"/><path d="M21 12H9"/></svg>
+      </a>
+    </div>
+  </aside>
+
+  <div class="app-main">
+    <div class="topbar">
+      <h2>Help Tickets</h2>
+    </div>
+
+    <div class="dashboard-content">
+
+      <!-- Category Tabs -->
+      <div class="status-tabs" id="ticketTabs" style="margin-bottom:20px; display:inline-flex;">
+        <button class="active" data-tab="report">🐞 Report Issues ({{ report_tickets | length }})</button>
+        <button data-tab="feedback">📝 Feedback ({{ feedback_tickets | length }})</button>
+        <button data-tab="contact">✉️ Contact Admin ({{ contact_tickets | length }})</button>
+      </div>
+
+      {% macro ticket_table(tickets) %}
+      <div class="card" style="overflow-x:auto;">
+        <table class="admin-table">
+          <thead>
+            <tr>
+              <th>User</th>
+              <th>विषय</th>
+              <th>तपशील</th>
+              <th>स्थिती</th>
+              <th>तारीख</th>
+              <th style="min-width:230px;">Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for t in tickets %}
+            <tr style="{{ 'opacity:.45;' if t['is_hidden'] else '' }}">
+              <td><strong>{{ t['full_name'] }}</strong><br><small style="color:var(--ink-soft);">{{ t['email'] }}</small></td>
+
+              <!-- View mode -->
+              <td class="view-mode-{{ t['ticket_id'] }}">{{ t['subject'] }}</td>
+              <td class="view-mode-{{ t['ticket_id'] }} ticket-desc">{{ t['description'] }}</td>
+
+              <!-- Edit mode (hidden by default) -->
+              <td class="edit-mode-{{ t['ticket_id'] }}" style="display:none;" colspan="2">
+                <form method="POST" action="{{ url_for('api_admin_edit_ticket', ticket_id=t['ticket_id']) }}" style="display:flex; flex-direction:column; gap:6px;">
+                  <input type="text" name="subject" value="{{ t['subject'] }}" style="padding:6px 8px; border-radius:6px; border:1.5px solid var(--border-soft); font-size:12px;">
+                  <textarea name="description" rows="2" style="padding:6px 8px; border-radius:6px; border:1.5px solid var(--border-soft); font-size:12px; font-family:inherit;">{{ t['description'] }}</textarea>
+                  <button type="submit" class="btn-mini">Save करा</button>
+                </form>
+              </td>
+
+              <td>
+                <span class="status-pill status-{{ t['status'] | replace(' ', '') }}">{{ t['status'] }}</span>
+                {% if t['is_hidden'] %}<br><span style="font-size:10px; color:var(--maroon);">🙈 Hidden</span>{% endif %}
+              </td>
+              <td style="white-space:nowrap; color:var(--ink-soft); font-size:12px;">{{ t['created_at'] }}</td>
+
+              <td>
+                <div style="display:flex; flex-direction:column; gap:6px;">
+                  {% if t['status'] != 'Resolved' %}
+                  <span class="status-pill status-Open" style="width:fit-content;">Reply दिल्यावर आपोआप Resolved होईल</span>
+                  {% endif %}
+                  <form method="POST" action="{{ url_for('api_admin_resolve_ticket', ticket_id=t['ticket_id']) }}" style="display:flex; flex-direction:column; gap:4px;">
+                    <textarea name="admin_reply" rows="2" placeholder="User ला उत्तर लिहा..." style="padding:6px; border-radius:8px; border:1.5px solid var(--border-soft); font-family:inherit; font-size:11.5px; resize:vertical;">{{ t['admin_reply'] or '' }}</textarea>
+                    <button type="submit" class="btn-mini">{{ 'Reply अपडेट करा' if t['admin_reply'] else 'Reply पाठवा' }}</button>
+                  </form>
+
+                  <div style="display:flex; gap:6px;">
+                    <button type="button" class="btn-mini" style="background:var(--gold);" onclick="toggleEdit({{ t['ticket_id'] }})">✏️ Edit</button>
+                    <form method="POST" action="{{ url_for('api_admin_toggle_hide_ticket', ticket_id=t['ticket_id']) }}">
+                      <button type="submit" class="btn-mini" style="background:var(--ink-soft);">{{ '👁️ Unhide' if t['is_hidden'] else '🙈 Hide' }}</button>
+                    </form>
+                    <form method="POST" action="{{ url_for('api_admin_delete_ticket', ticket_id=t['ticket_id']) }}" onsubmit="return confirm('हे ticket कायमचं delete करायचं का?');">
+                      <button type="submit" class="btn-mini" style="background:var(--maroon);">🗑️ Delete</button>
+                    </form>
+                  </div>
+                </div>
+              </td>
+            </tr>
+            {% else %}
+            <tr><td colspan="6" style="text-align:center; padding:30px; color:var(--ink-soft);">इथे काहीही नाही.</td></tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+      {% endmacro %}
+
+      <div class="tab-panel" data-panel="report">{{ ticket_table(report_tickets) }}</div>
+      <div class="tab-panel" data-panel="feedback" style="display:none;">{{ ticket_table(feedback_tickets) }}</div>
+      <div class="tab-panel" data-panel="contact" style="display:none;">{{ ticket_table(contact_tickets) }}</div>
+
+    </div>
+  </div>
+</div>
+
+<script>
+  document.querySelectorAll('#ticketTabs button').forEach(btn => {
+    btn.addEventListener('click', () => {
+      document.querySelectorAll('#ticketTabs button').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      const tab = btn.dataset.tab;
+      document.querySelectorAll('.tab-panel').forEach(p => {
+        p.style.display = (p.dataset.panel === tab) ? '' : 'none';
+      });
+    });
+  });
+
+  function toggleEdit(ticketId) {
+    document.querySelectorAll('.view-mode-' + ticketId).forEach(el => {
+      el.style.display = (el.style.display === 'none') ? '' : 'none';
+    });
+    const editCell = document.querySelector('.edit-mode-' + ticketId);
+    editCell.style.display = (editCell.style.display === 'none') ? '' : 'none';
+  }
+</script>
+
+</body>
+</html>

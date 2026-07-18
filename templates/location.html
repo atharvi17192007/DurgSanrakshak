@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="mr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Location | DurgSanrakshak</title>
+<link rel="stylesheet" href="{{ url_for('static', filename='css/app-shell.css') }}">
+<link rel="stylesheet" href="{{ url_for('static', filename='css/home.css') }}">
+<link rel="stylesheet" href="{{ url_for('static', filename='css/location.css') }}">
+</head>
+<body>
+
+<div class="app-shell">
+
+  <!-- ============ SIDEBAR ============ -->
+  <aside class="sidebar" id="sidebar">
+    <div class="sidebar-header">
+      <svg class="emblem" viewBox="0 0 44 44" fill="none">
+        <circle cx="22" cy="22" r="21" stroke="#F4842D" stroke-width="2"/>
+        <path d="M14 28 L14 18 L22 12 L30 18 L30 28 Z" fill="#F4842D"/>
+      </svg>
+      <span>दुर्गसंरक्षक</span>
+    </div>
+
+    <nav class="sidebar-nav">
+      <a href="{{ url_for('home_page') }}" class="nav-item">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 11l9-8 9 8"/><path d="M5 10v10h14V10"/></svg>
+        Home
+      </a>
+      <a href="{{ url_for('event_page') }}" class="nav-item">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18M8 3v4M16 3v4"/></svg>
+        Event
+      </a>
+      <a href="{{ url_for('community_page') }}" class="nav-item">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="9" cy="8" r="3"/><path d="M2 20c0-3.5 3-6 7-6s7 2.5 7 6"/><circle cx="17" cy="8" r="2.5"/><path d="M16 14.2c2.6.6 4.5 2.6 4.5 5.8"/></svg>
+        Community
+      </a>
+      <a href="{{ url_for('wallet_page') }}" class="nav-item">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="6" width="18" height="14" rx="2"/><path d="M3 10h18"/><circle cx="16" cy="14" r="1.5"/></svg>
+        Wallet
+      </a>
+      <a href="{{ url_for('location_page') }}" class="nav-item active">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 21s7-6.5 7-11a7 7 0 10-14 0c0 4.5 7 11 7 11z"/><circle cx="12" cy="10" r="2.5"/></svg>
+        Location
+      </a>
+      <a href="{{ url_for('help_page') }}" class="nav-item">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M9.5 9a2.5 2.5 0 015 .5c0 1.7-2.5 1.7-2.5 3.5"/><circle cx="12" cy="17" r=".3" fill="currentColor"/></svg>
+        Help
+      </a>
+      {% if is_admin %}
+      <a href="{{ url_for('admin_dashboard') }}" class="nav-item" style="color:var(--kesari);">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 00.33 1.82l.06.06a2 2 0 11-2.83 2.83l-.06-.06a1.65 1.65 0 00-1.82-.33 1.65 1.65 0 00-1 1.51V21a2 2 0 01-4 0v-.09A1.65 1.65 0 009 19.4a1.65 1.65 0 00-1.82.33l-.06.06a2 2 0 11-2.83-2.83l.06-.06A1.65 1.65 0 004.6 15a1.65 1.65 0 00-1.51-1H3a2 2 0 010-4h.09A1.65 1.65 0 004.6 9a1.65 1.65 0 00-.33-1.82l-.06-.06a2 2 0 112.83-2.83l.06.06A1.65 1.65 0 009 4.6a1.65 1.65 0 001-1.51V3a2 2 0 014 0v.09a1.65 1.65 0 001 1.51 1.65 1.65 0 001.82-.33l.06-.06a2 2 0 112.83 2.83l-.06.06A1.65 1.65 0 0019.4 9a1.65 1.65 0 001.51 1H21a2 2 0 010 4h-.09a1.65 1.65 0 00-1.51 1z"/></svg>
+        ⚙️ Admin Panel
+      </a>
+      {% endif %}
+    </nav>
+
+    <div class="sidebar-footer">
+      <div class="mini-avatar">{{ full_name[:1] if full_name else '?' }}</div>
+      <div class="who">
+        <strong>{{ full_name or 'अतिथी' }}</strong>
+        <small>🏅 Explorer</small>
+      </div>
+      <a class="logout-btn" href="{{ url_for('logout') }}" aria-label="लॉगआऊट">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 21H5a2 2 0 01-2-2V5a2 2 0 012-2h4"/><path d="M16 17l5-5-5-5"/><path d="M21 12H9"/></svg>
+      </a>
+    </div>
+  </aside>
+
+  <!-- ============ MAIN ============ -->
+  <div class="app-main">
+
+    <div class="topbar">
+      <h2>Location</h2>
+      <div class="topbar-right">
+        <button class="icon-btn" aria-label="सूचना">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 8a6 6 0 10-12 0c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.7 21a2 2 0 01-3.4 0"/></svg>
+          <span class="dot"></span>
+        </button>
+        <div class="mini-avatar">{{ full_name[:1] if full_name else '?' }}</div>
+      </div>
+    </div>
+
+    <div class="dashboard-content">
+
+      <div class="location-layout">
+
+        <!-- ===== LEFT: Fort list ===== -->
+        <div class="card fort-list-panel">
+          <div class="filter-chips" id="filterChips">
+            <button class="active" data-filter="all">सर्व</button>
+            <button data-filter="visited">भेट दिलेले</button>
+            <button data-filter="not-visited">न भेटलेले</button>
+            <button data-filter="event">Event ठिकाणं</button>
+          </div>
+
+          {% for fort in forts %}
+          <div class="fort-list-item" data-visited="{{ 'true' if fort['visited'] else 'false' }}" data-event="{{ 'true' if fort['event_count'] > 0 else 'false' }}" data-map-top="{{ fort['map_top'] }}" data-map-left="{{ fort['map_left'] }}" data-name="{{ fort['fort_name'] }}" data-fort-id="{{ fort['fort_id'] }}">
+            <div class="fort-list-icon {{ 'visited' if fort['visited'] else '' }}">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 21V9l4-3 4 3 4-3 4 3v12"/><path d="M9 21v-6h6v6"/></svg>
+            </div>
+            <div class="info">
+              <strong>{{ fort['fort_name'] }}</strong>
+              <small>{{ 'भेट दिली ✅' if fort['visited'] else (fort['event_count'] ~ ' events इथे झाले' if fort['event_count'] > 0 else 'अजून भेट नाही') }}</small>
+            </div>
+          </div>
+          {% else %}
+          <div style="padding:14px 8px; font-size:12.5px; color:var(--ink-soft);">अजून forts database मध्ये नाहीत.</div>
+          {% endfor %}
+        </div>
+
+        <!-- ===== RIGHT: Illustrated Map ===== -->
+        <div class="map-panel card" id="mapPanel">
+
+          <svg class="map-art" viewBox="0 0 100 100" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M0 40 Q 20 30 35 42 T 70 38 T 100 45" stroke="#D4A24C" stroke-width="0.4" fill="none" stroke-dasharray="1.5 1.5"/>
+            <path d="M5 60 Q 30 55 45 65 T 90 60" stroke="#8A6A3E" stroke-width="0.3" fill="none" stroke-dasharray="1 1.2"/>
+            <circle cx="15" cy="20" r="3" fill="#2F5233" opacity=".2"/>
+            <circle cx="85" cy="25" r="4" fill="#2F5233" opacity=".2"/>
+            <circle cx="60" cy="85" r="5" fill="#2F5233" opacity=".15"/>
+          </svg>
+
+          {% for fort in forts %}
+          <div class="map-pin {{ 'visited' if fort['visited'] else '' }}"
+               style="top:{{ fort['map_top'] }}%; left:{{ fort['map_left'] }}%;"
+               data-name="{{ fort['fort_name'] }}"
+               data-lat="{{ fort['latitude'] }}"
+               data-lng="{{ fort['longitude'] }}"
+               data-fort-id="{{ fort['fort_id'] }}"
+               data-visited="{{ 'true' if fort['visited'] else 'false' }}">
+            <div class="pin-dot"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 21V9l4-3 4 3 4-3 4 3v12"/></svg></div>
+            <div class="pin-label">{{ fort['fort_name'] }}</div>
+          </div>
+          {% endfor %}
+
+          <!-- Popover -->
+          <div class="map-popover card" id="mapPopover">
+            <h4 id="popoverName">-</h4>
+            <div class="dist" id="popoverDist">-</div>
+            <div class="popover-actions">
+              <a href="#" target="_blank" class="btn-ghost" id="popoverDirections" style="text-decoration:none; text-align:center;">दिशा दाखवा</a>
+              <form method="POST" action="" id="popoverVisitedForm">
+                <button type="submit" class="btn-ghost" id="popoverVisited" style="width:100%;">भेट दिली ✓</button>
+              </form>
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<script src="{{ url_for('static', filename='js/location.js') }}"></script>
+</body>
+</html>

@@ -1,0 +1,183 @@
+/* =====================================================
+   wallet.css — Wallet page specific styles
+   (base shell/tokens live in app-shell.css, modal base in event.css)
+   ===================================================== */
+
+/* ---------- Balance hero ---------- */
+.wallet-hero{
+  position:relative;
+  overflow:hidden;
+  background:linear-gradient(120deg, var(--ink) 0%, #3B2A44 55%, var(--kesari-deep) 130%);
+  color:var(--parchment);
+  padding:30px 32px;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  flex-wrap:wrap;
+  gap:20px;
+}
+.wallet-hero .balance-label{
+  font-size:12px;
+  text-transform:uppercase;
+  letter-spacing:.08em;
+  color:var(--parchment-2);
+  margin-bottom:6px;
+}
+.wallet-hero .balance-value{
+  font-family:var(--font-display);
+  font-size:42px;
+  color:#fff;
+  display:flex;
+  align-items:baseline;
+  gap:8px;
+}
+.wallet-hero .balance-value span{ font-size:16px; color:var(--kesari); font-family:var(--font-body); font-weight:600; }
+.wallet-hero .balance-sub{ font-size:12.5px; color:var(--parchment-2); margin-top:8px; }
+
+.hero-level{
+  text-align:center;
+  background:rgba(255,255,255,.08);
+  border-radius:var(--radius-md);
+  padding:16px 26px;
+}
+.hero-level small{ display:block; font-size:11px; color:var(--parchment-2); margin-bottom:4px; }
+.hero-level strong{ font-family:var(--font-display); font-size:18px; color:var(--kesari); }
+.level-progress{
+  width:160px;
+  height:6px;
+  background:rgba(255,255,255,.15);
+  border-radius:999px;
+  margin-top:10px;
+  overflow:hidden;
+}
+.level-progress-bar{
+  height:100%;
+  background:var(--kesari);
+  border-radius:999px;
+  width:64%;
+}
+.hero-level .next-level{ font-size:10.5px; color:var(--parchment-2); margin-top:6px; }
+
+/* ---------- Badges showcase ---------- */
+.badges-row{
+  display:grid;
+  grid-template-columns:repeat(3, 1fr);
+  gap:16px;
+}
+.badge-card{
+  padding:22px 16px;
+  text-align:center;
+  position:relative;
+}
+.badge-card.locked{ opacity:.5; }
+.badge-medal{
+  width:60px; height:60px;
+  border-radius:50%;
+  margin:0 auto 12px;
+  display:flex; align-items:center; justify-content:center;
+}
+.badge-medal svg{ width:28px; height:28px; color:#fff; }
+.badge-medal.bronze{ background:linear-gradient(160deg, #C08552, #8A5A34); }
+.badge-medal.silver{ background:linear-gradient(160deg, #C8CDD3, #8E97A1); }
+.badge-medal.gold{ background:linear-gradient(160deg, #F3D27A, #D4A24C); }
+.badge-card h4{ font-size:14px; margin-bottom:4px; }
+.badge-card small{ font-size:11px; color:var(--ink-soft); }
+.badge-lock-tag{
+  position:absolute; top:12px; right:12px;
+  font-size:10px; background:var(--bg-app); padding:3px 8px; border-radius:999px; color:var(--ink-soft);
+}
+
+/* ---------- Two column: history + redeem ---------- */
+.wallet-two-col{
+  display:grid;
+  grid-template-columns:1fr 1.3fr;
+  gap:20px;
+  margin-top:34px;
+  align-items:start;
+}
+
+/* history */
+.tx-list{ padding:8px 6px; }
+.tx-row{
+  display:flex;
+  align-items:center;
+  gap:12px;
+  padding:12px 14px;
+  border-radius:var(--radius-sm);
+}
+.tx-row:hover{ background:var(--bg-app); }
+.tx-icon{
+  width:36px; height:36px;
+  border-radius:10px;
+  display:flex; align-items:center; justify-content:center;
+  flex-shrink:0;
+}
+.tx-icon svg{ width:17px; height:17px; }
+.tx-icon.earn{ background:var(--forest-soft); color:var(--forest); }
+.tx-icon.bonus{ background:#FCE4D2; color:var(--kesari-deep); }
+.tx-icon.redeem{ background:#F1DCDC; color:var(--maroon); }
+
+.tx-info{ flex:1; min-width:0; }
+.tx-info strong{ display:block; font-size:13px; }
+.tx-info small{ font-size:11px; color:var(--ink-soft); }
+
+.tx-amount{ font-family:var(--font-display); font-size:14.5px; }
+.tx-amount.positive{ color:var(--forest); }
+.tx-amount.negative{ color:var(--maroon); }
+
+/* redeem catalog */
+.redeem-grid{
+  display:grid;
+  grid-template-columns:repeat(2, 1fr);
+  gap:14px;
+}
+.redeem-card{ padding:16px; }
+.redeem-icon{
+  width:44px; height:44px;
+  border-radius:12px;
+  background:var(--bg-app);
+  display:flex; align-items:center; justify-content:center;
+  margin-bottom:12px;
+}
+.redeem-icon svg{ width:20px; height:20px; color:var(--kesari-deep); }
+.redeem-card h4{ font-size:13.5px; margin-bottom:4px; }
+.redeem-card .cost{ font-size:12px; color:var(--ink-soft); margin-bottom:12px; }
+.redeem-card .cost strong{ color:var(--kesari-deep); font-family:var(--font-display); }
+.redeem-btn{
+  width:100%;
+  padding:9px;
+  border-radius:var(--radius-sm);
+  border:1.5px solid var(--kesari);
+  background:none;
+  color:var(--kesari-deep);
+  font-weight:600;
+  font-size:12px;
+}
+.redeem-btn:disabled{
+  border-color:var(--border-soft);
+  color:var(--ink-soft);
+  cursor:not-allowed;
+}
+
+@media (max-width: 980px){
+  .badges-row{ grid-template-columns:1fr; }
+  .wallet-two-col{ grid-template-columns:1fr; }
+  .redeem-grid{ grid-template-columns:1fr 1fr; }
+}
+
+/* ---------- Toast (redeem confirmation feedback) ---------- */
+.toast{
+  position:fixed;
+  bottom:26px;
+  left:50%;
+  transform:translateX(-50%) translateY(120%);
+  background:var(--forest);
+  color:#fff;
+  padding:14px 22px;
+  border-radius:var(--radius-sm);
+  font-size:13.5px;
+  box-shadow:0 12px 30px rgba(0,0,0,.3);
+  transition:transform .3s ease;
+  z-index:200;
+}
+.toast.show{ transform:translateX(-50%) translateY(0); }

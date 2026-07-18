@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="mr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>नोंदणी | DurgSanrakshak</title>
+<link rel="stylesheet" href="{{ url_for('static', filename='css/auth-common.css') }}">
+<link rel="stylesheet" href="{{ url_for('static', filename='css/signup.css') }}">
+</head>
+<body>
+
+<div class="auth-page">
+
+  <!-- ============ LEFT: FORT SCENE ============ -->
+  <div class="fort-panel">
+    <svg viewBox="0 0 800 1000" preserveAspectRatio="xMidYMax slice" xmlns="http://www.w3.org/2000/svg">
+      <polygon points="0,620 90,560 180,610 260,540 350,600 430,550 520,615 610,560 700,605 800,545 800,1000 0,1000"
+               fill="#3B2A44" opacity="0.55"/>
+      <polygon points="0,700 100,650 210,690 300,630 400,685 500,635 600,695 700,645 800,690 800,1000 0,1000"
+               fill="#5A3A3E" opacity="0.75"/>
+      <polygon points="0,800 120,740 230,790 340,720 420,780 520,730 640,785 800,735 800,1000 0,1000"
+               fill="#241A18"/>
+
+      <g fill="#1B1310">
+        <rect x="230" y="700" width="26" height="46"/>
+        <rect x="256" y="686" width="26" height="60"/>
+        <rect x="282" y="700" width="26" height="46"/>
+        <rect x="308" y="686" width="26" height="60"/>
+        <rect x="334" y="700" width="26" height="46"/>
+        <rect x="360" y="686" width="26" height="60"/>
+        <rect x="386" y="700" width="26" height="46"/>
+        <rect x="330" y="600" width="60" height="100" rx="2"/>
+        <polygon points="322,600 398,600 360,560"/>
+      </g>
+
+      <g>
+        <rect x="358" y="520" width="3" height="45" fill="#1B1310"/>
+        <path class="flag" d="M361 522 L400 530 L361 542 Z" fill="#F4842D"/>
+      </g>
+
+      <g stroke="#F3E6C9" stroke-width="2" fill="none" opacity="0.6">
+        <path d="M150 240 q8 -10 16 0 q8 -10 16 0"/>
+        <path d="M540 280 q6 -8 12 0 q6 -8 12 0"/>
+        <path d="M650 210 q8 -10 16 0 q8 -10 16 0"/>
+      </g>
+    </svg>
+
+    <div class="fort-scene-content">
+      <div class="brand-mark">
+        <svg class="emblem" viewBox="0 0 44 44" fill="none">
+          <circle cx="22" cy="22" r="21" stroke="#F4842D" stroke-width="2"/>
+          <path d="M14 28 L14 18 L22 12 L30 18 L30 28 Z" fill="#F4842D"/>
+        </svg>
+        <span>दुर्गसंरक्षक</span>
+      </div>
+
+      <p class="fort-quote">"सह्याद्रीच्या सान्निध्यात<br>वारसा जपूया."</p>
+
+      <div class="fort-stats">
+        <div><strong>५००+</strong><small>स्वयंसेवक</small></div>
+        <div><strong>१२०+</strong><small>किल्ले</small></div>
+        <div><strong>५०+</strong><small>मोहिमा</small></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============ RIGHT: SIGNUP CARD ============ -->
+  <div class="auth-card-wrap">
+    <div class="auth-card">
+
+      <div class="seal-badge">
+        <svg viewBox="0 0 24 24" fill="none">
+          <path d="M6 20 L6 11 L12 6 L18 11 L18 20 Z" fill="#FBF3E3"/>
+        </svg>
+      </div>
+
+      <h1>मोहिमेत सामील व्हा</h1>
+      <p class="subtitle">नवीन खाते तयार करून गड संवर्धनाला हातभार लावा</p>
+
+      <form id="signupForm" novalidate>
+
+        <div class="field">
+          <label for="fullName">पूर्ण नाव</label>
+          <div class="input-wrap">
+            <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <circle cx="12" cy="8" r="4"/><path d="M4 21c0-4 4-6 8-6s8 2 8 6"/>
+            </svg>
+            <input type="text" id="fullName" name="fullName" placeholder="तुमचे पूर्ण नाव" autocomplete="name">
+          </div>
+          <span class="field-error" id="fullNameError"></span>
+        </div>
+
+        <div class="field-row">
+          <div class="field">
+            <label for="email">ईमेल</label>
+            <div class="input-wrap">
+              <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M4 6h16v12H4z"/><path d="M4 7l8 6 8-6"/>
+              </svg>
+              <input type="email" id="email" name="email" placeholder="email@example.com" autocomplete="email">
+            </div>
+            <span class="field-error" id="emailError"></span>
+          </div>
+
+          <div class="field">
+            <label for="phone">मोबाईल क्रमांक</label>
+            <div class="input-wrap">
+              <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <rect x="7" y="2" width="10" height="20" rx="2"/><path d="M11 18h2"/>
+              </svg>
+              <input type="tel" id="phone" name="phone" placeholder="98XXXXXXXX" autocomplete="tel">
+            </div>
+            <span class="field-error" id="phoneError"></span>
+          </div>
+        </div>
+
+        <div class="field">
+          <label for="signupPass">पासवर्ड</label>
+          <div class="input-wrap">
+            <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <rect x="5" y="10" width="14" height="10" rx="2"/><path d="M8 10V7a4 4 0 018 0v3"/>
+            </svg>
+            <input type="password" id="signupPass" name="signupPass" placeholder="••••••••" autocomplete="new-password">
+            <button type="button" class="toggle-eye" data-target="signupPass" aria-label="पासवर्ड दाखवा">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M1 12s4-7 11-7 11 7 11 7-4 7-11 7-11-7-11-7z"/><circle cx="12" cy="12" r="3"/>
+              </svg>
+            </button>
+          </div>
+          <div class="strength-meter"><span></span><span></span><span></span><span></span></div>
+          <span class="strength-label" id="strengthLabel">&nbsp;</span>
+        </div>
+
+        <div class="field">
+          <label for="confirmPass">पासवर्ड पुन्हा टाका</label>
+          <div class="input-wrap">
+            <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <rect x="5" y="10" width="14" height="10" rx="2"/><path d="M8 10V7a4 4 0 018 0v3"/>
+            </svg>
+            <input type="password" id="confirmPass" name="confirmPass" placeholder="••••••••" autocomplete="new-password">
+            <button type="button" class="toggle-eye" data-target="confirmPass" aria-label="पासवर्ड दाखवा">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M1 12s4-7 11-7 11 7 11 7-4 7-11 7-11-7-11-7z"/><circle cx="12" cy="12" r="3"/>
+              </svg>
+            </button>
+          </div>
+          <span class="field-error" id="confirmPassError"></span>
+        </div>
+
+        <label class="checkbox-line row-between terms-line">
+          <span style="display:flex; align-items:flex-start; gap:8px;">
+            <input type="checkbox" id="terms">
+            मी <a href="#" class="link-muted">अटी व शर्ती</a> स्वीकारतो
+          </span>
+        </label>
+
+        <button type="submit" class="btn-primary">नोंदणी करा</button>
+      </form>
+
+      <p class="switch-line" style="margin-top:20px;">आधीच खाते आहे? <a href="{{ url_for('login_page') }}" class="link-muted">लॉगिन करा</a></p>
+
+    </div>
+  </div>
+
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script src="{{ url_for('static', filename='js/signup.js') }}"></script>
+</body>
+</html>

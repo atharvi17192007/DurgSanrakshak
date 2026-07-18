@@ -1,0 +1,76 @@
+/* =====================================================
+   admin.css — Admin panel specific styles
+   (base shell/tokens from app-shell.css, cards from home.css)
+   ===================================================== */
+
+.admin-badge{
+  display:inline-block;
+  background:var(--maroon);
+  color:#fff;
+  font-size:10.5px;
+  font-weight:700;
+  padding:3px 10px;
+  border-radius:999px;
+  margin-left:8px;
+  vertical-align:middle;
+}
+
+.admin-table{
+  width:100%;
+  border-collapse:collapse;
+}
+.admin-table th{
+  text-align:left;
+  font-size:11.5px;
+  text-transform:uppercase;
+  letter-spacing:.04em;
+  color:var(--ink-soft);
+  padding:12px 14px;
+  border-bottom:1px solid var(--border-soft);
+}
+.admin-table td{
+  padding:14px;
+  border-bottom:1px solid var(--border-soft);
+  font-size:13px;
+  vertical-align:middle;
+}
+.admin-table tr:last-child td{ border-bottom:none; }
+
+.status-pill{
+  font-size:11px;
+  font-weight:700;
+  padding:4px 10px;
+  border-radius:999px;
+  display:inline-block;
+}
+.status-Open{ background:#F1DCDC; color:var(--maroon); }
+.status-Resolved{ background:var(--forest-soft); color:var(--forest); }
+.status-Upcoming{ background:#FCE4D2; color:var(--kesari-deep); }
+.status-Ongoing{ background:var(--forest-soft); color:var(--forest); }
+.status-Completed{ background:#E9E4DC; color:var(--ink-soft); }
+.status-Cancelled{ background:#F1DCDC; color:var(--maroon); }
+
+.status-select{
+  padding:6px 10px;
+  border-radius:var(--radius-sm);
+  border:1.5px solid var(--border-soft);
+  font-size:12px;
+  font-family:inherit;
+  background:#FFFDF8;
+}
+
+.btn-mini{
+  padding:6px 14px;
+  border-radius:999px;
+  border:none;
+  background:var(--forest);
+  color:#fff;
+  font-size:11.5px;
+  font-weight:600;
+}
+
+.ticket-desc{
+  max-width:280px;
+  color:var(--ink-soft);
+  font-size:12.5px;
+}

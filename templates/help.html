@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+<html lang="mr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Help | DurgSanrakshak</title>
+<link rel="stylesheet" href="{{ url_for('static', filename='css/app-shell.css') }}">
+<link rel="stylesheet" href="{{ url_for('static', filename='css/home.css') }}">
+<link rel="stylesheet" href="{{ url_for('static', filename='css/event.css') }}">
+<link rel="stylesheet" href="{{ url_for('static', filename='css/help.css') }}">
+</head>
+<body>
+
+<div class="app-shell">
+
+  <!-- ============ SIDEBAR ============ -->
+  <aside class="sidebar" id="sidebar">
+    <div class="sidebar-header">
+      <svg class="emblem" viewBox="0 0 44 44" fill="none">
+        <circle cx="22" cy="22" r="21" stroke="#F4842D" stroke-width="2"/>
+        <path d="M14 28 L14 18 L22 12 L30 18 L30 28 Z" fill="#F4842D"/>
+      </svg>
+      <span>दुर्गसंरक्षक</span>
+    </div>
+
+    <nav class="sidebar-nav">
+      <a href="{{ url_for('home_page') }}" class="nav-item">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 11l9-8 9 8"/><path d="M5 10v10h14V10"/></svg>
+        Home
+      </a>
+      <a href="{{ url_for('event_page') }}" class="nav-item">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18M8 3v4M16 3v4"/></svg>
+        Event
+      </a>
+      <a href="{{ url_for('community_page') }}" class="nav-item">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="9" cy="8" r="3"/><path d="M2 20c0-3.5 3-6 7-6s7 2.5 7 6"/><circle cx="17" cy="8" r="2.5"/><path d="M16 14.2c2.6.6 4.5 2.6 4.5 5.8"/></svg>
+        Community
+      </a>
+      <a href="{{ url_for('wallet_page') }}" class="nav-item">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="6" width="18" height="14" rx="2"/><path d="M3 10h18"/><circle cx="16" cy="14" r="1.5"/></svg>
+        Wallet
+      </a>
+      <a href="{{ url_for('location_page') }}" class="nav-item">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 21s7-6.5 7-11a7 7 0 10-14 0c0 4.5 7 11 7 11z"/><circle cx="12" cy="10" r="2.5"/></svg>
+        Location
+      </a>
+      <a href="{{ url_for('help_page') }}" class="nav-item active">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M9.5 9a2.5 2.5 0 015 .5c0 1.7-2.5 1.7-2.5 3.5"/><circle cx="12" cy="17" r=".3" fill="currentColor"/></svg>
+        Help
+      </a>
+      {% if is_admin %}
+      <a href="{{ url_for('admin_dashboard') }}" class="nav-item" style="color:var(--kesari);">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 00.33 1.82l.06.06a2 2 0 11-2.83 2.83l-.06-.06a1.65 1.65 0 00-1.82-.33 1.65 1.65 0 00-1 1.51V21a2 2 0 01-4 0v-.09A1.65 1.65 0 009 19.4a1.65 1.65 0 00-1.82.33l-.06.06a2 2 0 11-2.83-2.83l.06-.06A1.65 1.65 0 004.6 15a1.65 1.65 0 00-1.51-1H3a2 2 0 010-4h.09A1.65 1.65 0 004.6 9a1.65 1.65 0 00-.33-1.82l-.06-.06a2 2 0 112.83-2.83l.06.06A1.65 1.65 0 009 4.6a1.65 1.65 0 001-1.51V3a2 2 0 014 0v.09a1.65 1.65 0 001 1.51 1.65 1.65 0 001.82-.33l.06-.06a2 2 0 112.83 2.83l-.06.06A1.65 1.65 0 0019.4 9a1.65 1.65 0 001.51 1H21a2 2 0 010 4h-.09a1.65 1.65 0 00-1.51 1z"/></svg>
+        ⚙️ Admin Panel
+      </a>
+      {% endif %}
+    </nav>
+
+    <div class="sidebar-footer">
+      <div class="mini-avatar">{{ full_name[:1] if full_name else '?' }}</div>
+      <div class="who">
+        <strong>{{ full_name or 'अतिथी' }}</strong>
+        <small>🏅 Explorer</small>
+      </div>
+      <a class="logout-btn" href="{{ url_for('logout') }}" aria-label="लॉगआऊट">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 21H5a2 2 0 01-2-2V5a2 2 0 012-2h4"/><path d="M16 17l5-5-5-5"/><path d="M21 12H9"/></svg>
+      </a>
+    </div>
+  </aside>
+
+  <!-- ============ MAIN ============ -->
+  <div class="app-main">
+
+    <div class="topbar">
+      <h2>Help &amp; Support</h2>
+      <div class="topbar-right">
+        <button class="icon-btn" aria-label="सूचना">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 8a6 6 0 10-12 0c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.7 21a2 2 0 01-3.4 0"/></svg>
+          <span class="dot"></span>
+        </button>
+        <div class="mini-avatar">{{ full_name[:1] if full_name else '?' }}</div>
+      </div>
+    </div>
+
+    <div class="dashboard-content">
+
+      <!-- Quick access cards -->
+      <div class="quick-grid">
+        <div class="card quick-card" id="openReportModal">
+          <div class="quick-icon maroon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 9v4M12 17h.01"/><path d="M10.3 3.9L1.8 18a2 2 0 001.7 3h17a2 2 0 001.7-3L13.7 3.9a2 2 0 00-3.4 0z"/></svg>
+          </div>
+          <h4>Report an Issue</h4>
+          <small>अडचण नोंदवा</small>
+        </div>
+
+        <div class="card quick-card" id="scrollToContacts">
+          <div class="quick-icon kesari">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.9v3a2 2 0 01-2.2 2 19.8 19.8 0 01-8.6-3.1 19.5 19.5 0 01-6-6 19.8 19.8 0 01-3.1-8.7A2 2 0 014.1 2h3a2 2 0 012 1.7c.1 1 .3 2 .7 2.9a2 2 0 01-.4 2.1L8 10a16 16 0 006 6l1.3-1.4a2 2 0 012.1-.4c.9.4 1.9.6 2.9.7a2 2 0 011.7 2.1z"/></svg>
+          </div>
+          <h4>Emergency Contacts</h4>
+          <small>तातडीचे संपर्क</small>
+        </div>
+
+        <div class="card quick-card" id="scrollToSafety">
+          <div class="quick-icon forest">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2l8 4v6c0 5-3.5 8.5-8 10-4.5-1.5-8-5-8-10V6l8-4z"/></svg>
+          </div>
+          <h4>Safety Guidelines</h4>
+          <small>सुरक्षा सूचना</small>
+        </div>
+
+        <div class="card quick-card" id="openContactAdminModal">
+          <div class="quick-icon gold">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/></svg>
+          </div>
+          <h4>Contact Admin</h4>
+          <small>Admin शी संपर्क</small>
+        </div>
+      </div>
+
+      <!-- माझ्या तक्रारी / My Tickets -->
+      {% if my_tickets %}
+      <div class="section-title" style="margin-top:10px;"><h3>📨 माझ्या तक्रारी आणि Admin चं उत्तर</h3></div>
+      <div class="card" style="padding:8px; margin-bottom:10px;">
+        {% for t in my_tickets %}
+        <div style="padding:14px; border-bottom:1px solid var(--border-soft);">
+          <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:6px;">
+            <strong style="font-size:13.5px;">{{ t['subject'] }}</strong>
+            <span class="status-pill status-{{ t['status'] | replace(' ', '') }}" style="font-size:10.5px; font-weight:700; padding:3px 10px; border-radius:999px; background:{{ 'var(--forest-soft)' if t['status'] == 'Resolved' else '#F1DCDC' }}; color:{{ 'var(--forest)' if t['status'] == 'Resolved' else 'var(--maroon)' }};">{{ t['status'] }}</span>
+          </div>
+          <p style="font-size:12.5px; color:var(--ink-soft); margin-bottom:8px;">{{ t['description'] }}</p>
+          {% if t['admin_reply'] %}
+          <div style="background:var(--bg-app); border-radius:8px; padding:10px 12px; font-size:12.5px;">
+            <strong style="color:var(--kesari-deep);">Admin चं उत्तर:</strong> {{ t['admin_reply'] }}
+          </div>
+          {% elif t['status'] == 'Resolved' %}
+          <div style="font-size:12px; color:var(--ink-soft); font-style:italic;">Resolved झालं, पण कुठलंही लिखित उत्तर दिलं नाहीये.</div>
+          {% else %}
+          <div style="font-size:12px; color:var(--ink-soft); font-style:italic;">अजून Admin कडून उत्तर आलेलं नाही.</div>
+          {% endif %}
+        </div>
+        {% endfor %}
+      </div>
+      {% endif %}
+
+      <div class="help-two-col">
+
+        <!-- FAQs -->
+        <div>
+          <div class="section-title" style="margin-top:0;"><h3>❓ वारंवार विचारले जाणारे प्रश्न</h3></div>
+          <div class="card faq-list" id="faqList">
+
+            <div class="faq-item open">
+              <button class="faq-question">
+                Event ला join कसं करायचं?
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>
+              </button>
+              <div class="faq-answer"><p>Event tab वर जा, हवा असलेला event निवडा, "तपशील पहा" वर क्लिक करा आणि "Event ला सामील व्हा" बटण दाबा.</p></div>
+            </div>
+
+            <div class="faq-item">
+              <button class="faq-question">
+                पॉईंट्स कसे मिळतात?
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>
+              </button>
+              <div class="faq-answer"><p>Event ला उपस्थित राहिल्यावर पॉईंट्स मिळतात, आणि verified Before/After clean-up फोटो अपलोड केल्यास bonus पॉईंट्स मिळतात.</p></div>
+            </div>
+
+            <div class="faq-item">
+              <button class="faq-question">
+                Photo verification किती वेळ घेते?
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>
+              </button>
+              <div class="faq-answer"><p>साधारणपणे २४-४८ तासांत Admin तुमचा फोटो तपासून verify करतो. Verify झाल्यावर wallet मध्ये पॉईंट्स जमा होतात.</p></div>
+            </div>
+
+            <div class="faq-item">
+              <button class="faq-question">
+                Community कशी create करायची?
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>
+              </button>
+              <div class="faq-answer"><p>Community tab वर जा, "नवीन Community तयार करा" बटण दाबा, नाव व वर्णन भरा — तुमची community लगेच तयार होईल.</p></div>
+            </div>
+
+            <div class="faq-item">
+              <button class="faq-question">
+                Redeem केलेले rewards कधी मिळतात?
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>
+              </button>
+              <div class="faq-answer"><p>Certificate/Badge लगेच digital स्वरूपात मिळतात. Merchandise (T-shirt, इ.) साठी ५-७ दिवस लागू शकतात.</p></div>
+            </div>
+
+          </div>
+
+          <!-- Feedback Form -->
+          <div class="card feedback-card" id="feedbackSection">
+            <div class="section-title" style="margin-top:0;"><h3>📝 Feedback द्या</h3></div>
+            <div class="star-row" id="starRow">
+              <svg viewBox="0 0 24 24" fill="currentColor" data-val="1"><path d="M12 2l3.1 6.3 6.9 1-5 4.9 1.2 6.8-6.2-3.3-6.2 3.3 1.2-6.8-5-4.9 6.9-1z"/></svg>
+              <svg viewBox="0 0 24 24" fill="currentColor" data-val="2"><path d="M12 2l3.1 6.3 6.9 1-5 4.9 1.2 6.8-6.2-3.3-6.2 3.3 1.2-6.8-5-4.9 6.9-1z"/></svg>
+              <svg viewBox="0 0 24 24" fill="currentColor" data-val="3"><path d="M12 2l3.1 6.3 6.9 1-5 4.9 1.2 6.8-6.2-3.3-6.2 3.3 1.2-6.8-5-4.9 6.9-1z"/></svg>
+              <svg viewBox="0 0 24 24" fill="currentColor" data-val="4"><path d="M12 2l3.1 6.3 6.9 1-5 4.9 1.2 6.8-6.2-3.3-6.2 3.3 1.2-6.8-5-4.9 6.9-1z"/></svg>
+              <svg viewBox="0 0 24 24" fill="currentColor" data-val="5"><path d="M12 2l3.1 6.3 6.9 1-5 4.9 1.2 6.8-6.2-3.3-6.2 3.3 1.2-6.8-5-4.9 6.9-1z"/></svg>
+            </div>
+            <form id="feedbackForm" method="POST" action="{{ url_for('api_help_feedback') }}">
+              <input type="hidden" name="rating" id="ratingInput" value="0">
+              <div class="form-field">
+                <textarea name="feedback_text" rows="4" placeholder="तुमचा अनुभव किंवा सूचना लिहा..."></textarea>
+              </div>
+              <button type="submit" class="btn-solid" style="width:100%; justify-content:center;">Feedback पाठवा</button>
+            </form>
+          </div>
+        </div>
+
+        {% if submitted == 'feedback' %}
+        <script>window.__toastMessage = '🙏 Feedback साठी धन्यवाद!';</script>
+        {% endif %}
+
+        <!-- Right column: Emergency + Safety -->
+        <div>
+          <div class="section-title" style="margin-top:0;" id="scrollToContactsAnchor"><h3>📞 Emergency Contacts</h3></div>
+          <div class="card">
+            <div class="contact-row">
+              <div class="contact-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.9v3a2 2 0 01-2.2 2 19.8 19.8 0 01-8.6-3.1 19.5 19.5 0 01-6-6 19.8 19.8 0 01-3.1-8.7A2 2 0 014.1 2h3a2 2 0 012 1.7c.1 1 .3 2 .7 2.9a2 2 0 01-.4 2.1L8 10a16 16 0 006 6l1.3-1.4a2 2 0 012.1-.4c.9.4 1.9.6 2.9.7a2 2 0 011.7 2.1z"/></svg></div>
+              <div class="contact-info"><strong>Trek Rescue Helpline</strong><small>२४x७ उपलब्ध</small></div>
+              <a href="tel:18001234567" class="call-link">कॉल करा</a>
+            </div>
+            <div class="contact-row">
+              <div class="contact-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.9v3a2 2 0 01-2.2 2 19.8 19.8 0 01-8.6-3.1 19.5 19.5 0 01-6-6 19.8 19.8 0 01-3.1-8.7A2 2 0 014.1 2h3a2 2 0 012 1.7c.1 1 .3 2 .7 2.9a2 2 0 01-.4 2.1L8 10a16 16 0 006 6l1.3-1.4a2 2 0 012.1-.4c.9.4 1.9.6 2.9.7a2 2 0 011.7 2.1z"/></svg></div>
+              <div class="contact-info"><strong>वन विभाग (Forest Dept.)</strong><small>स्थानिक सहाय्य</small></div>
+              <a href="tel:1926" class="call-link">कॉल करा</a>
+            </div>
+            <div class="contact-row">
+              <div class="contact-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.9v3a2 2 0 01-2.2 2 19.8 19.8 0 01-8.6-3.1 19.5 19.5 0 01-6-6 19.8 19.8 0 01-3.1-8.7A2 2 0 014.1 2h3a2 2 0 012 1.7c.1 1 .3 2 .7 2.9a2 2 0 01-.4 2.1L8 10a16 16 0 006 6l1.3-1.4a2 2 0 012.1-.4c.9.4 1.9.6 2.9.7a2 2 0 011.7 2.1z"/></svg></div>
+              <div class="contact-info"><strong>Ambulance</strong><small>वैद्यकीय आपत्कालीन</small></div>
+              <a href="tel:108" class="call-link">कॉल करा</a>
+            </div>
+          </div>
+
+          <div class="section-title" id="scrollToSafetyAnchor"><h3>🛡️ Safety Guidelines</h3></div>
+          <div class="card safety-list">
+            <div class="safety-item">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6L9 17l-5-5"/></svg>
+              नेहमी ट्रेकिंगसाठी योग्य शूज व कपडे घाला.
+            </div>
+            <div class="safety-item">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6L9 17l-5-5"/></svg>
+              पुरेसं पाणी आणि प्रथमोपचार किट सोबत ठेवा.
+            </div>
+            <div class="safety-item">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6L9 17l-5-5"/></svg>
+              गटासोबतच रहा, एकटे भटकू नका.
+            </div>
+            <div class="safety-item">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6L9 17l-5-5"/></svg>
+              हवामानाचा अंदाज आधी तपासून मगच निघा.
+            </div>
+            <div class="safety-item">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6L9 17l-5-5"/></svg>
+              Organizer च्या सूचनांचं काटेकोरपणे पालन करा.
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<!-- ============ REPORT ISSUE MODAL ============ -->
+<div class="modal-overlay" id="reportModal">
+  <div class="modal-box">
+    <button class="modal-close" id="closeReportModal">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 6l12 12M18 6L6 18"/></svg>
+    </button>
+    <h3>अडचण नोंदवा (Report an Issue)</h3>
+    <form id="reportForm" method="POST" action="{{ url_for('api_help_report') }}">
+      <div class="form-field">
+        <label>विषय</label>
+        <select name="subject" required>
+          <option value="">-- निवडा --</option>
+          <option>App मध्ये bug/error</option>
+          <option>Event संबंधित समस्या</option>
+          <option>Points/Wallet समस्या</option>
+          <option>इतर</option>
+        </select>
+      </div>
+      <div class="form-field">
+        <label>तपशील</label>
+        <textarea name="description" rows="4" placeholder="समस्या नीट समजावून सांगा..." required></textarea>
+      </div>
+      <button type="submit" class="btn-solid" style="width:100%; justify-content:center;">Report पाठवा</button>
+    </form>
+  </div>
+</div>
+
+<!-- ============ CONTACT ADMIN MODAL ============ -->
+<div class="modal-overlay" id="contactAdminModal">
+  <div class="modal-box">
+    <button class="modal-close" id="closeContactAdminModal">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 6l12 12M18 6L6 18"/></svg>
+    </button>
+    <h3>Admin शी संपर्क करा</h3>
+    <form id="contactAdminForm" method="POST" action="{{ url_for('api_help_contact_admin') }}">
+      <div class="form-field">
+        <label>Message</label>
+        <textarea name="message" rows="5" placeholder="Admin ला काय सांगायचं आहे..." required></textarea>
+      </div>
+      <button type="submit" class="btn-solid" style="width:100%; justify-content:center;">पाठवा</button>
+    </form>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+{% if submitted == 'report' %}
+<script>window.__toastMessage = '✅ Report पाठवला गेला! Admin लवकरच पाहतील.';</script>
+{% elif submitted == 'contact' %}
+<script>window.__toastMessage = '✅ तुमचा Message Admin ला पाठवला गेला!';</script>
+{% endif %}
+
+<script src="{{ url_for('static', filename='js/help.js') }}"></script>
+</body>
+</html>

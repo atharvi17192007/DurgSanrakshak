@@ -1,0 +1,260 @@
+/* =====================================================
+   home.css — Home Dashboard specific styles
+   (base shell/tokens live in app-shell.css)
+   ===================================================== */
+
+/* ---------- Welcome banner ---------- */
+.welcome-banner{
+  position:relative;
+  overflow:hidden;
+  background:linear-gradient(120deg, var(--ink) 0%, #3B2A44 55%, var(--kesari-deep) 130%);
+  color:var(--parchment);
+  padding:32px 34px;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:20px;
+}
+
+.welcome-banner .text h1{
+  font-family:var(--font-display);
+  font-size:26px;
+  margin-bottom:8px;
+}
+.welcome-banner .text p{
+  font-size:13.5px;
+  color:var(--parchment-2);
+  max-width:440px;
+  line-height:1.55;
+}
+
+.welcome-banner .quote-tag{
+  font-size:11.5px;
+  text-transform:uppercase;
+  letter-spacing:.08em;
+  color:var(--kesari);
+  font-weight:600;
+  margin-bottom:6px;
+  display:block;
+}
+
+.banner-mountains{
+  position:absolute;
+  right:0; bottom:0;
+  width:280px;
+  opacity:.9;
+  pointer-events:none;
+}
+
+/* ---------- Stats row ---------- */
+.stats-row{
+  display:grid;
+  grid-template-columns:repeat(4, 1fr);
+  gap:16px;
+  margin-top:22px;
+}
+
+.stat-card{
+  padding:18px 20px;
+  display:flex;
+  align-items:center;
+  gap:14px;
+}
+
+.stat-icon{
+  width:42px; height:42px;
+  border-radius:12px;
+  display:flex; align-items:center; justify-content:center;
+  flex-shrink:0;
+}
+.stat-icon svg{ width:20px; height:20px; }
+
+.stat-icon.kesari{ background:#FCE4D2; color:var(--kesari-deep); }
+.stat-icon.forest{ background:var(--forest-soft); color:var(--forest); }
+.stat-icon.gold{ background:#F6E8C9; color:#9C7318; }
+.stat-icon.maroon{ background:#F1DCDC; color:var(--maroon); }
+
+.stat-card strong{
+  display:block;
+  font-family:var(--font-display);
+  font-size:22px;
+  color:var(--ink);
+}
+.stat-card small{
+  font-size:11.5px;
+  color:var(--ink-soft);
+}
+
+/* ---------- Event cards ---------- */
+.event-card{
+  min-width:260px;
+  max-width:260px;
+  flex-shrink:0;
+  overflow:hidden;
+}
+
+.event-thumb{
+  height:110px;
+  background:linear-gradient(135deg, #4A2E3C, var(--kesari));
+  position:relative;
+}
+.event-status{
+  position:absolute;
+  top:10px; left:10px;
+  font-size:10.5px;
+  font-weight:600;
+  padding:4px 10px;
+  border-radius:999px;
+  background:rgba(0,0,0,.35);
+  color:#fff;
+  letter-spacing:.02em;
+}
+
+.event-body{ padding:14px 16px 16px; }
+.event-body h4{
+  font-size:14.5px;
+  margin-bottom:6px;
+  color:var(--ink);
+}
+.event-meta{
+  display:flex;
+  flex-direction:column;
+  gap:4px;
+  font-size:12px;
+  color:var(--ink-soft);
+  margin-bottom:12px;
+}
+.event-meta span{ display:flex; align-items:center; gap:6px; }
+.event-meta svg{ width:13px; height:13px; }
+
+.btn-ghost{
+  width:100%;
+  padding:9px;
+  border-radius:var(--radius-sm);
+  border:1.5px solid var(--kesari);
+  background:none;
+  color:var(--kesari-deep);
+  font-weight:600;
+  font-size:12.5px;
+  transition:background .15s ease, color .15s ease;
+}
+.btn-ghost:hover{ background:var(--kesari); color:#fff; }
+
+/* ---------- Fort cards ---------- */
+.fort-card{
+  min-width:190px;
+  max-width:190px;
+  flex-shrink:0;
+  padding:14px;
+  text-align:center;
+}
+.fort-icon-wrap{
+  width:100%;
+  height:80px;
+  border-radius:var(--radius-sm);
+  background:linear-gradient(160deg, #2F5233, #6E8F5E);
+  display:flex; align-items:center; justify-content:center;
+  margin-bottom:10px;
+}
+.fort-icon-wrap svg{ width:34px; height:34px; color:#fff; opacity:.9; }
+.fort-card h4{ font-size:13.5px; margin-bottom:4px; }
+.fort-card small{ font-size:11px; color:var(--ink-soft); }
+.fort-card .directions{
+  display:inline-block;
+  margin-top:8px;
+  font-size:11.5px;
+  font-weight:600;
+  color:var(--kesari-deep);
+}
+
+/* ---------- Two column: Leaderboard + Gallery ---------- */
+.two-col{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:20px;
+  margin-top:34px;
+}
+
+.leaderboard-list{ padding:8px 6px; }
+.leader-row{
+  display:flex;
+  align-items:center;
+  gap:12px;
+  padding:12px 14px;
+  border-radius:var(--radius-sm);
+}
+.leader-row:hover{ background:var(--bg-app); }
+
+.rank-badge{
+  width:26px; height:26px;
+  border-radius:50%;
+  display:flex; align-items:center; justify-content:center;
+  font-size:12px; font-weight:700; color:#fff;
+  flex-shrink:0;
+}
+.rank-1{ background:#D4A24C; }
+.rank-2{ background:#9AA5AE; }
+.rank-3{ background:#B0713C; }
+.rank-other{ background:var(--ink-soft); }
+
+.leader-avatar{
+  width:34px; height:34px;
+  border-radius:50%;
+  background:var(--forest-soft);
+  color:var(--forest);
+  display:flex; align-items:center; justify-content:center;
+  font-weight:700; font-size:12.5px;
+  flex-shrink:0;
+}
+
+.leader-info{ flex:1; min-width:0; }
+.leader-info strong{ display:block; font-size:13.5px; }
+.leader-info small{ font-size:11px; color:var(--ink-soft); }
+
+.leader-points{
+  font-family:var(--font-display);
+  font-size:15px;
+  color:var(--kesari-deep);
+}
+
+/* ---------- Before / After gallery ---------- */
+.gallery-grid{
+  padding:14px;
+  display:flex;
+  flex-direction:column;
+  gap:14px;
+}
+.compare-card{
+  display:flex;
+  border-radius:var(--radius-sm);
+  overflow:hidden;
+  border:1px solid var(--border-soft);
+}
+.compare-half{
+  flex:1;
+  height:90px;
+  position:relative;
+  display:flex;
+  align-items:flex-end;
+  padding:8px;
+}
+.compare-half.before{ background:linear-gradient(160deg,#6B5C50,#3B2E27); }
+.compare-half.after{ background:linear-gradient(160deg,#6E8F5E,#2F5233); }
+.compare-half span{
+  font-size:10px;
+  font-weight:700;
+  letter-spacing:.05em;
+  text-transform:uppercase;
+  color:#fff;
+  background:rgba(0,0,0,.3);
+  padding:3px 8px;
+  border-radius:999px;
+}
+
+/* ---------- Responsive ---------- */
+@media (max-width: 980px){
+  .stats-row{ grid-template-columns:repeat(2, 1fr); }
+  .two-col{ grid-template-columns:1fr; }
+  .welcome-banner{ flex-direction:column; align-items:flex-start; }
+  .banner-mountains{ display:none; }
+}

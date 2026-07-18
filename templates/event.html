@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="mr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Events | DurgSanrakshak</title>
+<link rel="stylesheet" href="{{ url_for('static', filename='css/app-shell.css') }}">
+<link rel="stylesheet" href="{{ url_for('static', filename='css/home.css') }}">
+<link rel="stylesheet" href="{{ url_for('static', filename='css/event.css') }}">
+</head>
+<body>
+
+<div class="app-shell">
+
+  <!-- ============ SIDEBAR ============ -->
+  <aside class="sidebar" id="sidebar">
+    <div class="sidebar-header">
+      <svg class="emblem" viewBox="0 0 44 44" fill="none">
+        <circle cx="22" cy="22" r="21" stroke="#F4842D" stroke-width="2"/>
+        <path d="M14 28 L14 18 L22 12 L30 18 L30 28 Z" fill="#F4842D"/>
+      </svg>
+      <span>दुर्गसंरक्षक</span>
+    </div>
+
+    <nav class="sidebar-nav">
+      <a href="{{ url_for('home_page') }}" class="nav-item">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 11l9-8 9 8"/><path d="M5 10v10h14V10"/></svg>
+        Home
+      </a>
+      <a href="{{ url_for('event_page') }}" class="nav-item active">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18M8 3v4M16 3v4"/></svg>
+        Event
+      </a>
+      <a href="{{ url_for('community_page') }}" class="nav-item">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="9" cy="8" r="3"/><path d="M2 20c0-3.5 3-6 7-6s7 2.5 7 6"/><circle cx="17" cy="8" r="2.5"/><path d="M16 14.2c2.6.6 4.5 2.6 4.5 5.8"/></svg>
+        Community
+      </a>
+      <a href="{{ url_for('wallet_page') }}" class="nav-item">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="6" width="18" height="14" rx="2"/><path d="M3 10h18"/><circle cx="16" cy="14" r="1.5"/></svg>
+        Wallet
+      </a>
+      <a href="{{ url_for('location_page') }}" class="nav-item">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 21s7-6.5 7-11a7 7 0 10-14 0c0 4.5 7 11 7 11z"/><circle cx="12" cy="10" r="2.5"/></svg>
+        Location
+      </a>
+      <a href="{{ url_for('help_page') }}" class="nav-item">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M9.5 9a2.5 2.5 0 015 .5c0 1.7-2.5 1.7-2.5 3.5"/><circle cx="12" cy="17" r=".3" fill="currentColor"/></svg>
+        Help
+      </a>
+      {% if is_admin %}
+      <a href="{{ url_for('admin_dashboard') }}" class="nav-item" style="color:var(--kesari);">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 00.33 1.82l.06.06a2 2 0 11-2.83 2.83l-.06-.06a1.65 1.65 0 00-1.82-.33 1.65 1.65 0 00-1 1.51V21a2 2 0 01-4 0v-.09A1.65 1.65 0 009 19.4a1.65 1.65 0 00-1.82.33l-.06.06a2 2 0 11-2.83-2.83l.06-.06A1.65 1.65 0 004.6 15a1.65 1.65 0 00-1.51-1H3a2 2 0 010-4h.09A1.65 1.65 0 004.6 9a1.65 1.65 0 00-.33-1.82l-.06-.06a2 2 0 112.83-2.83l.06.06A1.65 1.65 0 009 4.6a1.65 1.65 0 001-1.51V3a2 2 0 014 0v.09a1.65 1.65 0 001 1.51 1.65 1.65 0 001.82-.33l.06-.06a2 2 0 112.83 2.83l-.06.06A1.65 1.65 0 0019.4 9a1.65 1.65 0 001.51 1H21a2 2 0 010 4h-.09a1.65 1.65 0 00-1.51 1z"/></svg>
+        ⚙️ Admin Panel
+      </a>
+      {% endif %}
+    </nav>
+
+    <div class="sidebar-footer">
+  <div class="mini-avatar">
+    {{ full_name[:1] if full_name else '?' }}
+  </div>
+
+  <div class="who">
+    <strong>{{ full_name or 'अतिथी' }}</strong>
+    <small>🏅 Explorer</small>
+  </div>
+      <button class="logout-btn" aria-label="लॉगआऊट">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 21H5a2 2 0 01-2-2V5a2 2 0 012-2h4"/><path d="M16 17l5-5-5-5"/><path d="M21 12H9"/></svg>
+      </button>
+    </div>
+  </aside>
+
+  <!-- ============ MAIN ============ -->
+  <div class="app-main">
+
+    <div class="topbar">
+      <h2>Events</h2>
+      <div class="topbar-right">
+        <div class="search-box">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4-4"/></svg>
+          <input type="text" placeholder="इव्हेंट शोधा...">
+        </div>
+        <button class="icon-btn" aria-label="सूचना">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 8a6 6 0 10-12 0c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.7 21a2 2 0 01-3.4 0"/></svg>
+          <span class="dot"></span>
+        </button>
+        <div class="mini-avatar">
+  {{ full_name[:1] if full_name else '?' }}
+</div>
+      </div>
+    </div>
+
+    <div class="dashboard-content">
+
+      <div class="page-actions">
+        <div class="status-tabs" id="statusTabs">
+          <button class="active" data-filter="All">सर्व</button>
+          <button data-filter="Upcoming">Upcoming</button>
+          <button data-filter="Ongoing">Ongoing</button>
+          <button data-filter="Completed">Completed</button>
+        </div>
+        {% if is_admin %}
+<button class="btn-solid" id="openCreateModal">
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+    <path d="M12 5v14M5 12h14"/>
+  </svg>
+  नवीन Event तयार करा
+</button>
+{% endif %}
+      </div>
+
+      <div class="events-grid" id="eventsGrid">
+
+        {% for ev in events %}
+        <div class="card event-card"
+             data-status="{{ ev['status'] }}"
+             data-event-id="{{ ev['event_id'] }}"
+             data-name="{{ ev['event_name'] }}"
+             data-fort="{{ ev['fort_name'] }}"
+             data-date="{{ ev['event_date'] }}"
+             data-time="{{ ev['event_time'] }}"
+             data-participants="{{ ev['participant_count'] }}"
+             data-joined="{{ 'true' if ev['already_joined'] else 'false' }}">
+          <div class="event-thumb"><span class="event-status status-{{ ev['status'] }}">{{ ev['status'] }}</span></div>
+          <div class="event-body">
+            <h4>{{ ev['event_name'] }}</h4>
+            <div class="event-meta">
+              <span>📅 {{ ev['event_date'] }}, {{ ev['event_time'] }}</span>
+              <span>📍 {{ ev['fort_name'] }}</span>
+              <span>👥 {{ ev['participant_count'] }} सहभागी</span>
+            </div>
+            <button class="btn-ghost view-details-btn">तपशील पहा</button>
+            {% if session.user_id == ev['created_by'] or is_admin %}
+            <form method="POST" action="{{ url_for('api_delete_event', event_id=ev['event_id']) }}" onsubmit="return confirm('हा event कायमचा delete करायचा आहे का?');" style="margin-top:8px;">
+              <button type="submit" class="btn-ghost" style="border-color:var(--maroon); color:var(--maroon); width:100%;">🗑️ Event Delete करा</button>
+            </form>
+            {% endif %}
+          </div>
+        </div>
+        {% endfor %}
+
+      </div>
+
+      {% if not events %}
+      <div class="empty-state">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18M8 3v4M16 3v4"/></svg>
+        <p>अजून कोणतेही events नाहीत — "नवीन Event तयार करा" वर क्लिक करून पहिला event बनवा!</p>
+      </div>
+      {% endif %}
+
+      <div class="empty-state" id="emptyState" style="display:none;">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18M8 3v4M16 3v4"/></svg>
+        <p>या filter मध्ये कोणतेही events नाहीत</p>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+{% if is_admin %}
+<!-- ============ CREATE EVENT MODAL ============ -->
+<div class="modal-overlay" id="createModal">
+  <div class="modal-box">
+    <button class="modal-close" id="closeCreateModal">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 6l12 12M18 6L6 18"/></svg>
+    </button>
+    <h3>नवीन Event तयार करा</h3>
+    <form id="createEventForm" method="POST" action="{{ url_for('api_create_event') }}">
+      <div class="form-field">
+        <label>Event चं नाव</label>
+        <input type="text" name="event_name" placeholder="उदा. रायगड स्वच्छता मोहीम" required>
+      </div>
+      <div class="form-field">
+        <label>वर्णन</label>
+        <textarea name="description" rows="3" placeholder="Event बद्दल थोडक्यात माहिती..."></textarea>
+      </div>
+      <div class="form-field">
+        <label>किल्ला निवडा</label>
+        <select name="fort_id" required>
+          <option value="">-- किल्ला निवडा --</option>
+          {% for fort in forts %}
+          <option value="{{ fort['fort_id'] }}">{{ fort['fort_name'] }}</option>
+          {% endfor %}
+        </select>
+      </div>
+      <div class="form-row">
+        <div class="form-field">
+          <label>तारीख</label>
+          <input type="date" name="event_date" required>
+        </div>
+        <div class="form-field">
+          <label>वेळ</label>
+          <input type="time" name="event_time" required>
+        </div>
+      </div>
+      <div class="form-field">
+        <label>जास्तीत जास्त सहभागी (ऐच्छिक)</label>
+        <input type="number" name="max_participants" placeholder="उदा. 50">
+      </div>
+      <button type="submit" class="btn-solid" style="width:100%; justify-content:center; margin-top:6px;">Event तयार करा</button>
+    </form>
+  </div>
+</div>
+{% endif %}
+<!-- ============ EVENT DETAILS MODAL ============ -->
+<div class="modal-overlay" id="detailsModal">
+  <div class="modal-box">
+    <button class="modal-close" id="closeDetailsModal">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 6l12 12M18 6L6 18"/></svg>
+    </button>
+
+    <div class="detail-status-row">
+      <span class="badge-pill" id="detailStatusBadge">Upcoming</span>
+    </div>
+    <h3 id="detailEventName">Event नाव</h3>
+
+    <div class="detail-meta-grid">
+      <div class="item"><small>📍 ठिकाण</small><strong id="detailFort">-</strong></div>
+      <div class="item"><small>📅 तारीख</small><strong id="detailDate">-</strong></div>
+      <div class="item"><small>⏰ वेळ</small><strong id="detailTime">-</strong></div>
+      <div class="item"><small>👤 आयोजक (Organizer)</small><strong id="detailOrganizer">-</strong></div>
+    </div>
+
+    <form id="joinEventForm" method="POST" action="">
+      <button type="submit" class="btn-solid" id="joinEventBtn" style="width:100%; justify-content:center;">Event ला सामील व्हा</button>
+    </form>
+
+    <div class="detail-section-label">सहभागी यादी (<span id="detailParticipantCount">0</span>)</div>
+    <div class="participant-list" id="detailParticipantList">
+      <!-- JS मार्फत भरलं जाईल -->
+    </div>
+
+
+    <div class="detail-section-label">Event Gallery</div>
+    <div class="detail-gallery">
+      <div class="compare-half before" style="border-radius:8px;"><span>Before</span></div>
+      <div class="compare-half after" style="border-radius:8px;"><span>After</span></div>
+    </div>
+
+    <div class="detail-section-label">QR Code Check-in (ऐच्छिक)</div>
+    <div class="qr-box">
+      <svg viewBox="0 0 100 100" fill="none">
+        <rect width="100" height="100" rx="6" fill="#1F1712"/>
+        <rect x="10" y="10" width="25" height="25" fill="#FBF3E3"/>
+        <rect x="65" y="10" width="25" height="25" fill="#FBF3E3"/>
+        <rect x="10" y="65" width="25" height="25" fill="#FBF3E3"/>
+        <rect x="45" y="45" width="10" height="10" fill="#FBF3E3"/>
+        <rect x="45" y="60" width="10" height="10" fill="#FBF3E3"/>
+        <rect x="60" y="45" width="10" height="10" fill="#FBF3E3"/>
+      </svg>
+      <p>Event ठिकाणी पोहोचल्यावर हा QR कोड scan करा — तुमची उपस्थिती आपोआप नोंदवली जाईल.</p>
+    </div>
+
+  </div>
+</div>
+
+<script src="{{ url_for('static', filename='js/event.js') }}"></script>
+</body>
+</html>
